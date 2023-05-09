@@ -18,4 +18,8 @@ class SQLFormatter {
 
         return $resultstring;
     }
+
+    public function set($property,$value){
+        return $property . "='" . $value . "'";
+    }
 }
