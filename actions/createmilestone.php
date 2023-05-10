@@ -2,9 +2,7 @@
 
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;
-
-header('Access-Control-Allow-Origin: *');
-
+include_once('../utils/headers.php');
 include_once('../utils/connect.php');
 
 $dataset = [$_POST['project_id'], $_POST['name'], $_POST['description']];

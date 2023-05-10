@@ -2,13 +2,14 @@
 
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;
+
 include_once('../utils/headers.php');
 include_once('../utils/connect.php');
 
-$dataset = [$_POST['milestone_id'], $_POST['name'], $_POST['description']];
+$hash = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
 $formatter = new SQLFormatter();
-$sql = "INSERT INTO assignments (milestone_id, name,description) VALUES (" . $formatter->formatArray($dataset) . ")";
+$sql = "INSERT INTO users (username,pass) VALUES ('". $_POST['username'] ."', '". $hash ."')";
 
 $result = $conn->query($sql);
 
