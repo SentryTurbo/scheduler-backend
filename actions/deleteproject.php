@@ -26,6 +26,10 @@ if($dataset !== null){
 $sql = "DELETE FROM milestones WHERE project_id=" . $_GET['id'];
 $result = $conn->query($sql);
 
+//delete all members
+$sql = "DELETE FROM members WHERE project_id=" . $_GET['id'];
+$result = $conn->query($sql);
+
 //delete the project
 $sql = "DELETE FROM projects WHERE id=" . $_GET['id'];
 $result = $conn->query($sql);
