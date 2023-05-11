@@ -55,3 +55,22 @@ class UserSession{
         return $authdata;
     }
 }
+
+class Perms{
+    public static function ParseUserPerms($project, $user, $perm){
+        global $conn;
+
+        $sql = "SELECT perms FROM members WHERE members.project_id=$project AND members.user_id=$user";
+        $result = $conn->query($sql);
+
+        $perms = $result->fetch_assoc();
+        
+        if($perms == "all")
+            return true;
+        
+        if(str_contains($perms, $perm))
+            return true;
+
+        return false;
+    }
+}
