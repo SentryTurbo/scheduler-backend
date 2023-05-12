@@ -16,6 +16,16 @@ function addMember(){
     global $conn;
     global $result;
 
+    //check if member has sufficient permissions
+    //get user session
+    $session = new UserSession();
+    $userdata = $session->GetUserData($data->auth);
+
+    //see if member has perm a_mb (add members)
+    $allow = Perms::ParseUserPerms($data->project, $userdata["id"], "a_mb");
+    if(!$allow)
+        return false;
+
     //search for the member by name
     $sql = "SELECT id FROM users WHERE username='".$data->user . "'";
     $result = $conn->query($sql);
@@ -46,6 +56,11 @@ function removeMember(){
     $session = new UserSession();
     $userdata = $session->GetUserData($data->auth);
 
+    //see if member has perm d_mb (delete members)
+    $allow = Perms::ParseUserPerms($data->project, $userdata["id"], "d_mb");
+    if(!$allow)
+        return false;
+
     if($userdata['id'] != $data->user){
         $sql = "DELETE FROM members WHERE project_id=".$data->project." AND user_id=".$data->user;
         $result = $conn->query($sql);
@@ -59,6 +74,11 @@ function editMember(){
 
     $session = new UserSession();
     $userdata = $session->GetUserData($data->auth);
+
+    //see if member has perm e_mb (edit members)
+    $allow = Perms::ParseUserPerms($data->project, $userdata["id"], "e_mb");
+    if(!$allow)
+        return false;
 
     if($userdata['id'] != $data->user){
         //convert perms to csv

@@ -65,11 +65,18 @@ class Perms{
 
         $perms = $result->fetch_assoc();
         
-        if($perms == "all")
-            return true;
-        
-        if(str_contains($perms, $perm))
-            return true;
+        $allperms = explode(",", $perms["perms"]);
+        foreach ($allperms as $value) {
+            if($value == "all")
+                return true;
+
+            if($value == $perm){
+                return true;
+            }
+            if($value === $perm){
+                return true;
+            }
+        }
 
         return false;
     }
