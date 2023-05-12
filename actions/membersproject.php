@@ -52,6 +52,30 @@ function removeMember(){
     }
 }
 
+function editMember(){
+    global $data;
+    global $conn;
+    global $result;
+
+    $session = new UserSession();
+    $userdata = $session->GetUserData($data->auth);
+
+    if($userdata['id'] != $data->user){
+        //convert perms to csv
+        $perms = json_decode($data->perms, true);
+        $csv = "";
+        foreach ($perms as $key => $value) {
+            if($value){
+                $csv .= $key;
+                $csv .= ',';
+            }
+        }
+
+        $sql = "UPDATE members SET perms='". $csv ."' WHERE user_id=".$data->user." AND project_id=".$data->project;
+        $result = $conn->query($sql);
+    }
+}
+
 //switch depending on the action
 switch($data->action){
     case "add":
@@ -61,6 +85,7 @@ switch($data->action){
         removeMember();
         break;
     case "edit":
+        editMember();
         break;
 }
 
