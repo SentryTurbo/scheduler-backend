@@ -105,4 +105,42 @@ CREATE TABLE assignees(
 ";
 $result = $conn->query($sql);
 
+d('creating submissions');
+$sql="
+CREATE TABLE submissions(
+    id INT NOT NULL AUTO_INCREMENT,
+    assignment_id INT NOT NULL,
+    member_id INT NOT NULL,
+    name VARCHAR(100),
+    description TEXT,
+    linkedimages VARCHAR(255),
+    PRIMARY KEY(id),
+    FOREIGN KEY (assignment_id) REFERENCES assignments(id),
+    FOREIGN KEY (member_id) REFERENCES members(id)
+)
+";
+$result = $conn->query($sql);
+
+d('creating global tables');
+
+d('creating image table');
+$sql="
+CREATE TABLE images(
+    id INT NOT NULL AUTO_INCREMENT,
+    url VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id)
+)
+";
+$result = $conn->query($sql);
+
+d('creating file table');
+$sql="
+CREATE TABLE files(
+    id INT NOT NULL AUTO_INCREMENT,
+    url VARCHAR(255) NOT NULL,
+    PRIMARY KEY(id)
+)
+";
+$result = $conn->query($sql);
+
 d('SUCCESS');
