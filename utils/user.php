@@ -117,4 +117,13 @@ class ProjectUtils{
 
         return $result->fetch_assoc();
     }
+
+    public static function GetUserMember($user, $project){
+        global $conn;
+
+        $sql = "SELECT * FROM members WHERE project_id=$project AND user_id=$user";
+        $result = $conn->query($sql);
+
+        return $result->fetch_assoc();
+    }
 }
