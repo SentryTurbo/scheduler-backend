@@ -81,3 +81,40 @@ class Perms{
         return false;
     }
 }
+
+class ProjectUtils{
+    public static function GetAssignmentProject($assignmentid){
+        global $conn;
+
+        //get milestone id
+        $sql = "SELECT milestone_id FROM assignments WHERE id=$assignmentid";
+        $result = $conn->query($sql);
+        $milestone = $result->fetch_assoc()["milestone_id"];
+
+        //get project id
+        $sql = "SELECT project_id FROM milestones WHERE id=$milestone";
+        $result = $conn->query($sql);
+        $project = $result->fetch_assoc()["project_id"];
+
+        //get project data
+        $sql = "SELECT * FROM projects WHERE id=$project";
+        $result = $conn->query($sql);
+
+        return $result->fetch_assoc();
+    }
+
+    public static function GetMilestoneProject($milestoneid){
+        global $conn;
+        
+        //get project id
+        $sql = "SELECT project_id FROM milestones WHERE id=$milestoneid";
+        $result = $conn->query($sql);
+        $project = $result->fetch_assoc()["project_id"];
+
+        //get project data
+        $sql = "SELECT * FROM projects WHERE id=$project";
+        $result = $conn->query($sql);
+
+        return $result->fetch_assoc();
+    }
+}

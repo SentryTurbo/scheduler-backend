@@ -4,11 +4,7 @@ header('Access-Control-Allow-Origin: *');
 
 include_once('utils/connect.php');
 
-if(!isset($_GET['id'])){
-	die("ERROR");
-}
-
-$sql = "SELECT id,name,description FROM milestones WHERE id=" . $_GET['id'];
+$sql = "SELECT id,name,description,project_id FROM milestones WHERE id=" . $_GET['id'];
 $result = $conn->query($sql);
 
 $response = array();
