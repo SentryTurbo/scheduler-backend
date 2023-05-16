@@ -148,6 +148,7 @@ $sql="
 CREATE TABLE files(
     id INT NOT NULL AUTO_INCREMENT,
     url VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
     link INT NOT NULL,
     linktype VARCHAR(10) NOT NULL,
     PRIMARY KEY(id)

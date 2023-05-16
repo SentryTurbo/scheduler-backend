@@ -127,3 +127,18 @@ class ProjectUtils{
         return $result->fetch_assoc();
     }
 }
+
+class FileUtils{
+    public static function ParseFiletype($url){
+        if(str_ends_with($url, '.png') || str_ends_with($url, '.jpg') || str_ends_with($url, '.gif'))
+            return 'Image';
+        
+        if(str_ends_with($url, '.exe'))
+            return 'Executeable'; 
+
+        if(str_ends_with($url, '.zip') || str_ends_with($url, '.rar'))
+            return 'Compressed folder';
+        
+        return 'Unknown';
+    }
+}
