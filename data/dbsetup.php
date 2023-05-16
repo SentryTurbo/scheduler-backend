@@ -1,8 +1,11 @@
 <?php
 
 include_once '../utils/constants.php';
-include_once '../utils/creds.php';
-include_once '../utils/connect.php';
+
+include_once('../utils/creds.php');
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
 
 echo "[DEBUG] Starting setup...";
 
@@ -27,6 +30,24 @@ function d($text){
     b();
     echo '[DEBUG] ' . $text;
 }
+
+d('dropping DB');
+$sql = "
+    DROP DATABASE IF EXISTS scheduler;
+";
+$result = $conn->query($sql);
+
+d('creating DB');
+$sql = "
+    CREATE DATABASE scheduler;
+";
+$result = $conn->query($sql);
+
+d('selecting DB');
+$sql = "
+    USE scheduler;
+";
+$result = $conn->query($sql);
 
 d('creating users');
 $sql = "
@@ -113,7 +134,7 @@ CREATE TABLE submissions(
     member_id INT NOT NULL,
     name VARCHAR(100),
     description TEXT,
-    linkedimages VARCHAR(255),
+    linkedfiles VARCHAR(255),
     PRIMARY KEY(id),
     FOREIGN KEY (assignment_id) REFERENCES assignments(id),
     FOREIGN KEY (member_id) REFERENCES members(id)
@@ -122,22 +143,26 @@ CREATE TABLE submissions(
 $result = $conn->query($sql);
 
 d('creating global tables');
-
-d('creating image table');
-$sql="
-CREATE TABLE images(
-    id INT NOT NULL AUTO_INCREMENT,
-    url VARCHAR(255) NOT NULL,
-    PRIMARY KEY(id)
-)
-";
-$result = $conn->query($sql);
-
 d('creating file table');
 $sql="
 CREATE TABLE files(
     id INT NOT NULL AUTO_INCREMENT,
     url VARCHAR(255) NOT NULL,
+    link INT NOT NULL,
+    linktype VARCHAR(10) NOT NULL,
+    PRIMARY KEY(id)
+)
+";
+$result = $conn->query($sql);
+
+d('creating comment table');
+$sql="
+CREATE TABLE comments(
+    id INT NOT NULL AUTO_INCREMENT,
+    content VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
+    link INT NOT NULL,
+    linktype VARCHAR(10) NOT NULL,
     PRIMARY KEY(id)
 )
 ";

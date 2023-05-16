@@ -60,6 +60,16 @@ function ViewSpecificSubmission(){
     $result = $conn->query($sql)->fetch_assoc();
 }
 
+function EditSubmission(){
+    global $data, $conn, $result, $userdata, $memberdata;
+
+    $submission = $data->id;
+    $editData = json_decode($data->data, true);
+    
+    $sql = "UPDATE submissions SET name='". $editData['name'] ."', description='". $editData['description'] ."' WHERE id=$submission";
+    $result = $conn->query($sql);
+}
+
 //switch depending on the action
 switch($data->action){
     case "add":
@@ -68,6 +78,7 @@ switch($data->action){
     case "remove":
         break;
     case "edit":
+        EditSubmission();
         break;
     case "viewall":
         ViewAllSubmissions();
