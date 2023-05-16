@@ -33,6 +33,11 @@ function UploadFile(){
             'jpg' => 'image/jpeg',
             'png' => 'image/png',
             'gif' => 'image/gif',
+            'txt' => 'text/plain',
+            'pdf' => 'application/pdf',
+            'zip' => 'application/zip',
+            'mp3' => 'audio/mpeg',
+            'mp4' => 'video/mp4'
         ),
         true
     )) {
