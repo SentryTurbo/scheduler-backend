@@ -25,8 +25,11 @@ if(!$allow)
 
 $formatter = new SQLFormatter();
 
+$name = $data->name;
+$description = $data->description;
+
 //edit assignment
-$sql = "UPDATE assignments SET ". $formatter->set($data->name, $data->value) ." WHERE id=". $data->id;
+$sql = "UPDATE assignments SET name='$name', description='$description' WHERE id=". $data->id;
 $result = $conn->query($sql);
 
 echo json_encode($data);

@@ -70,6 +70,30 @@ function EditSubmission(){
     $result = $conn->query($sql);
 }
 
+function DeleteSubmission(){
+    global $data, $conn, $result, $userdata, $memberdata;
+
+    $submissionId = $data->id;
+    
+    //get submission data
+    $sql = "SELECT * FROM submissions WHERE id=$submissionId";
+    $submission = $conn->query($sql)->fetch_assoc();
+
+    $link = $submission['id'];
+    $linktype = 's';
+
+    //delete comments
+    $sql = "DELETE from comments WHERE link=$link AND linktype='$linktype'";
+    $conn->query($sql);
+
+    //delete files
+    $result = FileUtils::DeleteAllLinkedFiles($data->auth, $link, $linktype);
+
+    //delete the submission
+    $sql = "DELETE FROM submissions WHERE id=$submissionId";
+    $conn->query($sql);
+}
+
 //switch depending on the action
 switch($data->action){
     case "add":
@@ -85,6 +109,9 @@ switch($data->action){
         break;
     case "view":
         ViewSpecificSubmission();
+        break;
+    case "delete":
+        DeleteSubmission();
         break;
 }
 

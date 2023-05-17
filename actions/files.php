@@ -21,7 +21,7 @@ function UploadFile(){
     }
 
     //file size check
-    if($_FILES['upfile']['size'] > 1000000){
+    if($_FILES['upfile']['size'] > 10000000){
         die('filesize');
     }
     

@@ -141,4 +141,35 @@ class FileUtils{
         
         return 'Unknown';
     }
+
+    public static function DeleteAllLinkedFiles($auth, $link, $linktype){
+        global $conn;
+
+        $result = true;
+
+        //get all the files we need
+        $sql = "SELECT * FROM files WHERE link=$link AND linktype='$linktype'";
+        $allfiles = $conn->query($sql);
+
+        while($row = $allfiles->fetch_assoc()){
+            $url = $row['url'];
+            $id = $row['id'];
+            
+            //check if file gets used numerous times
+            $sql = "SELECT * FROM files WHERE url='$url'";
+            $initquery = $conn->query($sql);
+
+            //if it isn't, delete it
+            if($initquery->num_rows == 1){
+                $file = $initquery->fetch_assoc();
+                unlink($file['url']);
+            }
+
+            //delete the row
+            $sql = "DELETE FROM files WHERE id=$id";
+            $result = $conn->query($sql);
+        }
+
+        return $result;
+    }
 }
