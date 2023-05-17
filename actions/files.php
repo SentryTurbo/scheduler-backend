@@ -75,16 +75,45 @@ function ViewLinkedFiles(){
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
+    $session = new UserSession();
+    $userdata = $session->GetUserData($data['auth']);
+
     $link = $data['link'];
     $linktype = $data['linktype'];
+
+    $projectdata = null;
+    switch($linktype){
+        case 'a':
+            $projectdata = ProjectUtils::GetAssignmentProject($link);
+            break;
+        case 's':
+            $sql = "SELECT * FROM submissions WHERE id=".$link;
+            $sub = $conn->query($sql)->fetch_assoc();
+            $projectdata = ProjectUtils::GetAssignmentProject($sub['assignment_id']);
+            break;
+        }
 
     $sql = "SELECT * FROM files WHERE link=$link AND linktype='$linktype'";
     $query = $conn->query($sql);
     
+    $files = [];
     $result = [];
     while($row = $query->fetch_assoc()){
         $row['type'] = FileUtils::ParseFiletype($row['url']);
-        $result[] = $row;
+        $files[] = $row;
+    }
+
+    $result['files'] = $files;
+    $result['add'] = false;
+
+    //check if the user has perms to add files
+    if($projectdata === null){
+        $result['add'] = true;
+    }
+
+    if($projectdata !== null){
+        //a_f - add files
+        $result['add'] = Perms::ParseUserPerms($projectdata['id'], $userdata['id'], 'a_f');
     }
 }
 
