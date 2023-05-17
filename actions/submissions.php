@@ -38,26 +38,37 @@ function AddSubmission(){
 }
 
 function ViewAllSubmissions(){
-    global $data, $conn, $result, $userdata, $memberdata;
+    global $data, $conn, $result, $userdata, $memberdata, $projectdata;
 
     $assignment = $data->assignment;
 
     $sql = "SELECT id,name FROM submissions WHERE assignment_id=$assignment";
     $set = $conn->query($sql);
 
+    $submissions = [];
     $result = [];
     while($row = $set->fetch_assoc()){
-        $result[] = $row;
+        $submissions[] = $row;
     }
+
+    $result['submissions'] = $submissions;
+    
+    //check perms for a_s (add solutions)
+    $result['add'] = Perms::ParseUserPerms($projectdata['id'], $userdata['id'], 'a_s');
 }
 
 function ViewSpecificSubmission(){
-    global $data, $conn, $result, $userdata, $memberdata;
+    global $data, $conn, $result, $userdata, $memberdata, $projectdata;
 
     $submission = $data->id;
 
     $sql = "SELECT * FROM submissions WHERE id=$submission";
     $result = $conn->query($sql)->fetch_assoc();
+    $result['own'] = $result['member_id'] == $memberdata['id'];
+
+    $globalEdit = Perms::ParseUserPerms($projectdata['id'], $userdata['id'], 'e_s');
+    if($globalEdit)
+        $result['own'] = true;
 }
 
 function EditSubmission(){

@@ -14,8 +14,20 @@ $result = false;
 $session = new UserSession();
 $userdata = $session->GetUserData($data->auth);
 
+$projectdata = null;
+switch($data->linktype){
+    case 'a':
+        $projectdata = ProjectUtils::GetAssignmentProject($data->link);
+        break;
+    case 's':
+        $sql = "SELECT * FROM submissions WHERE id=".$data->link;
+        $sub = $conn->query($sql)->fetch_assoc();
+        $projectdata = ProjectUtils::GetAssignmentProject($sub['assignment_id']);
+        break;
+    }
+
 function ViewComments(){
-    global $conn, $result, $data, $userdata;
+    global $conn, $result, $data, $userdata, $projectdata;
 
     $linktype = $data->linktype;
     $link = $data->link;
@@ -29,13 +41,26 @@ function ViewComments(){
     WHERE linktype='$linktype' AND link=$link
     ";
     $comments = $conn->query($sql);
-    
+
     //dump all comments to a result array
+    $comms = [];
     $result = [];
 
     while($row = $comments->fetch_assoc()){
         $row['own'] = $userdata['username'] == $row['username'];
-        $result[] = $row;
+        $comms[] = $row;
+    }
+
+    $result['comments'] = $comms;
+    $result['add'] = false;
+
+    if($projectdata === null)
+        $result['add'] = true;
+
+    //check if the user has perms to add comments
+    if($projectdata !== null){
+        //a_c - add comments
+        $result['add'] = Perms::ParseUserPerms($projectdata['id'], $userdata['id'], 'a_c');
     }
 }
 

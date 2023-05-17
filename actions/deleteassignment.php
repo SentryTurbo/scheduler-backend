@@ -25,7 +25,38 @@ if(!$allow)
 
 $formatter = new SQLFormatter();
 
-//delete linked assignments
+$link = $data->id;
+$linktype = 'a';
+
+//delete submissions
+//get all linked submissions
+$sql = "SELECT * FROM submissions WHERE assignment_id=$link";
+$result = $conn->query($sql);
+
+//loop through submissions and delete linked files and comments
+while($row = $result->fetch_assoc()){
+    //delete comments
+    $id = $row['id'];
+
+    $sql = "DELETE FROM comments WHERE link=$id AND linktype='s'";
+    $conn->query($sql);
+
+    //delete files
+    FileUtils::DeleteAllLinkedFiles($data->auth, $id, 's');
+}
+
+//delete linked submissions
+$sql = "DELETE FROM submissions WHERE assignment_id=$link";
+$conn->query($sql);
+
+//delete linked comments
+$sql = "DELETE from comments WHERE link=$link AND linktype='$linktype'";
+$conn->query($sql);
+
+//delete linked files
+FileUtils::DeleteAllLinkedFiles($data->auth, $link, $linktype);
+
+//delete assignments
 $sql = "DELETE FROM assignments WHERE id=" . $data->id;
 $result = $conn->query($sql);
 
