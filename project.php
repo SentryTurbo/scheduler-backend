@@ -79,6 +79,12 @@ while($row = $result->fetch_assoc()) {
         $row['finish'] = true;
     }
 
+    if($finishcount == 0)
+    {
+        $row['percent'] = 0;
+        $row['finish'] = false;
+    }
+
     $milestones[] = $row;
 }
 
