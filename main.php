@@ -49,7 +49,7 @@ $response['milestones'] = $milestones;
 $assignments = array();
 
 $sql = "
-    select assignments.id, assignments.name, assignments.description 
+    select assignments.id, assignments.name, assignments.description, assignments.milestone_id 
     from members 
     inner join projects on members.project_id=projects.id
     inner join milestones on milestones.project_id=projects.id
