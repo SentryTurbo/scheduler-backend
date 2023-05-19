@@ -22,6 +22,41 @@ $response = array();
 $projects = array();
 
 while($row = $result->fetch_assoc()) {
+    //calculate project progress
+    $sql = "SELECT * FROM milestones WHERE project_id=" . $row['id'];
+    $rm = $conn->query($sql);
+
+    //milestone count
+    $miles = $rm->num_rows;
+
+    //finished milestone count
+    $fmiles = 0;
+
+    while($m = $rm->fetch_assoc()){
+        //get assignment count
+        $sql = "SELECT * FROM assignments WHERE milestone_id=".$m['id'];
+        $ra = $conn->query($sql);
+
+        $acount = $ra->num_rows;
+
+        //get finished assignment count
+        $sql = "SELECT * FROM assignments WHERE milestone_id=". $m['id'] ." AND finish_date <> '0000-00-00' AND finish_date IS NOT NULL";
+        $ra = $conn->query($sql);
+
+        $fcount = $ra->num_rows;
+
+        if($acount == $fcount)
+            $fmiles++;
+    }
+    
+    $row['progress'] = "$fmiles/$miles";
+
+    if($fmiles == $miles)
+        $row['finish'] = true;
+
+    //percent
+    $row['percent'] = $miles == 0 ? 0 : number_format($fmiles/$miles * 100);
+
     $projects[] = $row;
 }
 
@@ -40,6 +75,28 @@ $sql = "
 $result = $conn->query($sql);
 
 while($row = $result->fetch_assoc()) {
+    //calculate milestone progress
+    //get number of assignments altogether
+    $sql = "SELECT * FROM assignments WHERE milestone_id=".$row['id'];
+    $r = $conn->query($sql);
+
+    $acount = $r->num_rows;
+
+    //get number of finished assignments
+    $sql = "SELECT * FROM assignments WHERE milestone_id=". $row['id'] ." AND finish_date <> '0000-00-00' AND finish_date IS NOT NULL";
+    $r = $conn->query($sql);
+
+    $fcount = $r->num_rows;
+
+    //set progress
+    $row['progress'] = "$fcount/$acount";
+
+    //percent
+    $row['percent'] = $acount == 0 ? 0 : number_format($fcount/$acount * 100);
+
+    if($fcount == $acount)
+        $row['finish'] = true;
+
     $milestones[] = $row;
 }
 

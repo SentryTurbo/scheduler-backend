@@ -63,7 +63,7 @@ while($row = $result->fetch_assoc()) {
     //calculate percentage
     if($assignmentcount > 0){
         $percent = ($finishcount / $assignmentcount) * 100;
-        $percent = round($percent);
+        $percent = number_format($percent);
 
         if($percent > 100)
             $percent = 100;
@@ -82,17 +82,17 @@ while($row = $result->fetch_assoc()) {
     if($finishcount == 0)
     {
         $row['percent'] = 0;
-        $row['finish'] = false;
+        //$row['finish'] = false;
     }
 
     $milestones[] = $row;
 }
 
 //calculate percentage of milestones finished
-$stats['percent'] = 0;
+$stats['percent'] = 0.00;
 if($stats['milestonecount'] > 0 && $stats['finishedcount'] > 0){
     $stats['percent'] = ($stats['finishedcount'] / $stats['milestonecount']) * 100;
-    $stats['percent'] = round($percent);
+    $stats['percent'] = number_format($stats['percent']);
 
     if($stats['percent'] > 100)
         $stats['percent'] = 100;
