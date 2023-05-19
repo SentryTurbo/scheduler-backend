@@ -43,10 +43,15 @@ while($row = $r->fetch_assoc()){
 }
 
 //search submissions
-$sql = "SELECT id,name FROM submissions WHERE name LIKE '%$querytext%'";
+$sql = "SELECT id,name,assignment_id FROM submissions WHERE name LIKE '%$querytext%'";
 $r = $conn->query($sql);
 
 while($row = $r->fetch_assoc()){
+    //fetch the assignment's milestone
+    $sql = "SELECT milestone_id FROM assignments WHERE id=".$row['assignment_id'];
+    $res = $conn->query($sql)->fetch_assoc();
+
+    $row['milestone'] = $res['milestone_id'];
     $row['type'] = 'submission';
     $matchresults[] = $row;
 }
