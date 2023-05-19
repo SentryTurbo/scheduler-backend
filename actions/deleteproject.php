@@ -22,55 +22,37 @@ if(!$allow)
 $formatter = new SQLFormatter();
 
 //get milestones that align with the project id
-$sql = "SELECT id FROM milestones WHERE project_id=" . $data->id;
+$sql = "SELECT * FROM milestones WHERE project_id=" . $data->id;
 $result = $conn->query($sql);
 
-$dataset = $result->fetch_array(MYSQLI_NUM);
+while($milestone = $result->fetch_assoc()){
+    
+    //get all assignments
+    $ar = $conn->query("SELECT * FROM assignments WHERE milestone_id=".$milestone['id']);
+    while($assignment = $ar->fetch_assoc()){
+        //get all submissions
+        $sr = $conn->query("SELECT * FROM submissions WHERE assignment_id=".$assignment['id']);
+        
+        while($submission = $sr->fetch_assoc()){
+            //delete comments
+            $conn->query("DELETE from comments WHERE link=". $submission['id'] ." AND linktype='s'");
 
-if($dataset !== null){
-    //delete all linked assignments
-    for($i=0;$i<count($dataset);$i++){
-        //get all assignments
-        $sql = "SELECT * FROM assignments WHERE milestone_id=". $dataset[$i];
-        $res = $conn->query($sql);
-
-        //delete all linked submissions
-        while($as = $res->fetch_assoc()){
-            $link = $as['id'];
-            $linktype = 'a';
-            
-            //delete submissions
-            //get all linked submissions
-            $sql = "SELECT * FROM submissions WHERE assignment_id=$link";
-            $result = $conn->query($sql);
-            
-            //loop through submissions and delete linked files and comments
-            while($row = $result->fetch_assoc()){
-                //delete comments
-                $id = $row['id'];
-            
-                $sql = "DELETE FROM comments WHERE link=$id AND linktype='s'";
-                $conn->query($sql);
-            
-                //delete files
-                FileUtils::DeleteAllLinkedFiles($data->auth, $id, 's');
-            }
-            
-            //delete linked submissions
-            $sql = "DELETE FROM submissions WHERE assignment_id=$link";
-            $conn->query($sql);
-            
-            //delete linked comments
-            $sql = "DELETE from comments WHERE link=$link AND linktype='a'";
-            $conn->query($sql);
-            
-            //delete linked files
-            FileUtils::DeleteAllLinkedFiles($data->auth, $link, 'a');
+            //delete files
+            FileUtils::DeleteAllLinkedFiles($data->auth, $submission['id'], 's');
         }
 
-        $sql = "DELETE FROM assignments WHERE milestone_id=" . $dataset[$i];
-        $result = $conn->query($sql);
+        //delete submissions
+        $sr = $conn->query("DELETE FROM submissions WHERE assignment_id=".$assignment['id']);
+
+        //delete comments
+        $conn->query("DELETE from comments WHERE link=". $assignment['id'] ." AND linktype='a'");
+
+        //delete files
+        FileUtils::DeleteAllLinkedFiles($data->auth, $assignment['id'], 'a');
     }
+
+    //delete all assignments
+    $conn->query("DELETE FROM assignments WHERE milestone_id=".$milestone['id']);
 }
 
 //delete all milestones
