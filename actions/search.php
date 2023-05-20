@@ -16,7 +16,12 @@ $matchresults = [];
 $querytext = $data->query->text;
 
 //search projects
-$sql = "SELECT id,name FROM projects WHERE name LIKE '%$querytext%'";
+$sql = "
+    select projects.id, projects.name, projects.description from members
+    inner join projects on members.project_id=projects.id
+    where members.user_id=".$userdata['id']. " and name LIKE '%$querytext%'";
+
+//$sql = "SELECT id,name FROM projects WHERE name LIKE '%$querytext%'";
 $r = $conn->query($sql);
 
 while($row = $r->fetch_assoc()){
@@ -25,7 +30,14 @@ while($row = $r->fetch_assoc()){
 }
 
 //search milestones
-$sql = "SELECT id,name,project_id FROM milestones WHERE name LIKE '%$querytext%'";
+$sql = "
+    select milestones.id, milestones.name, milestones.description 
+    from members 
+    inner join projects on members.project_id=projects.id
+    inner join milestones on milestones.project_id=projects.id
+    where members.user_id=".$userdata['id']. " and milestones.name LIKE '%$querytext%'";
+
+//$sql = "SELECT id,name,project_id FROM milestones WHERE name LIKE '%$querytext%'";
 $r = $conn->query($sql);
 
 while($row = $r->fetch_assoc()){
@@ -34,7 +46,15 @@ while($row = $r->fetch_assoc()){
 }
 
 //search assignments
-$sql = "SELECT id,name,milestone_id FROM assignments WHERE name LIKE '%$querytext%'";
+$sql = "
+    select assignments.id, assignments.name, assignments.description, assignments.milestone_id 
+    from members 
+    inner join projects on members.project_id=projects.id
+    inner join milestones on milestones.project_id=projects.id
+    inner join assignments on assignments.milestone_id=milestones.id
+    where members.user_id=".$userdata["id"]." and assignments.name LIKE '%$querytext%'";
+
+//$sql = "SELECT id,name,milestone_id FROM assignments WHERE name LIKE '%$querytext%'";
 $r = $conn->query($sql);
 
 while($row = $r->fetch_assoc()){
@@ -43,7 +63,16 @@ while($row = $r->fetch_assoc()){
 }
 
 //search submissions
-$sql = "SELECT id,name,assignment_id FROM submissions WHERE name LIKE '%$querytext%'";
+$sql = "
+    select submissions.id, submissions.name, submissions.description, submissions.assignment_id 
+    from members 
+    inner join projects on members.project_id=projects.id
+    inner join milestones on milestones.project_id=projects.id
+    inner join assignments on assignments.milestone_id=milestones.id
+    inner join submissions on submissions.assignment_id=assignments.id
+    where members.user_id=".$userdata["id"]." and submissions.name LIKE '%$querytext%'";
+
+//$sql = "SELECT id,name,assignment_id FROM submissions WHERE name LIKE '%$querytext%'";
 $r = $conn->query($sql);
 
 while($row = $r->fetch_assoc()){
