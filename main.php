@@ -122,3 +122,4 @@ while($row = $result->fetch_assoc()) {
 $response['assignments'] = $assignments;
 
 echo json_encode($response);
+http_response_code(200);
