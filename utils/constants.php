@@ -5,10 +5,10 @@ namespace Utils;
 function getConst($path){
     $globalArray = [
         'db' => [
-            'address' => 'localhost',
-            'user' => 'root',
-            'pass' => '',
-            'dbname' => 'scheduler'
+            'address' => 'https://vladsrt.000webhostapp.com/',
+            'user' => 'id20798148_root',
+            'pass' => 'Rezeknestehnikums0',
+            'dbname' => 'id20798148_scheduler'
         ]
     ];
 
