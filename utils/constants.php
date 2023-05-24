@@ -7,7 +7,7 @@ function getConst($path){
         'db' => [
             'address' => 'https://vladsrt.000webhostapp.com/',
             'user' => 'id20798148_root',
-            'pass' => 'Rezeknestehnikums0',
+            'pass' => 'Rezeknestehnikums123@',
             'dbname' => 'id20798148_scheduler'
         ]
     ];
