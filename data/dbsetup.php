@@ -92,7 +92,6 @@ CREATE TABLE milestones(
     project_id INT NOT NULL,
     name VARCHAR(60) NOT NULL,
     description TEXT,
-    finish_date DATE,
     PRIMARY KEY(id),
     FOREIGN KEY (project_id) REFERENCES projects(id)
 )
