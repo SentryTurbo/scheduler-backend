@@ -66,7 +66,9 @@ CREATE TABLE projects(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL,
     description TEXT,
-    PRIMARY KEY(id)
+    creator INT NOT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY (creator) REFERENCES users(id)
 )
 ";
 $result = $conn->query($sql);

@@ -60,6 +60,12 @@ class Perms{
     public static function ParseUserPerms($project, $user, $perm){
         global $conn;
 
+        //check if user is creator of project, if so, user has all perms automatically
+        $sql = "SELECT creator FROM projects WHERE id=$project";
+        $result = $conn->query($sql)->fetch_assoc();
+        if($result['creator'] == $user)
+            return true;
+
         $sql = "SELECT perms FROM members WHERE members.project_id=$project AND members.user_id=$user";
         $result = $conn->query($sql);
 
@@ -149,6 +155,37 @@ class FileUtils{
 
         //get all the files we need
         $sql = "SELECT * FROM files WHERE link=$link AND linktype='$linktype'";
+        $allfiles = $conn->query($sql);
+
+        while($row = $allfiles->fetch_assoc()){
+            $url = $row['url'];
+            $id = $row['id'];
+            
+            //check if file gets used numerous times
+            $sql = "SELECT * FROM files WHERE url='$url'";
+            $initquery = $conn->query($sql);
+
+            //if it isn't, delete it
+            if($initquery->num_rows == 1){
+                $file = $initquery->fetch_assoc();
+                unlink($file['url']);
+            }
+
+            //delete the row
+            $sql = "DELETE FROM files WHERE id=$id";
+            $result = $conn->query($sql);
+        }
+
+        return $result;
+    }
+
+    public static function DeleteAllUserFiles($user){
+        global $conn;
+
+        $result = true;
+
+        //get all the files we need
+        $sql = "SELECT * FROM files WHERE user_id=$user";
         $allfiles = $conn->query($sql);
 
         while($row = $allfiles->fetch_assoc()){
