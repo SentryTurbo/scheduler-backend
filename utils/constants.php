@@ -7,7 +7,7 @@ function getConst($path){
         'db' => [
             'address' => 'localhost',
             'user' => 'root',
-            'pass' => '',
+            'pass' => '3e1Iosplbci5',
             'dbname' => 'scheduler'
         ]
     ];
