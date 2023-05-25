@@ -135,7 +135,6 @@ CREATE TABLE submissions(
     member_id INT NOT NULL,
     name VARCHAR(100),
     description TEXT,
-    linkedfiles VARCHAR(255),
     PRIMARY KEY(id),
     FOREIGN KEY (assignment_id) REFERENCES assignments(id),
     FOREIGN KEY (member_id) REFERENCES members(id)
