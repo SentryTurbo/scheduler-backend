@@ -9,11 +9,15 @@ $result = false;
 
 //get user data
 $session = new UserSession();
+$userdata = null;
 if(isset($_POST['auth']))
     $userdata = $session->GetUserData($_POST['auth']);
 
 function UploadFile(){
-    global $result, $conn;
+    global $result, $conn, $userdata;
+
+    if($userdata === null)
+        die('nouser');
 
     //invalid parameters
     if(!isset($_FILES['upfile']['error']) || is_array($_FILES['upfile']['error'])){
@@ -62,8 +66,10 @@ function UploadFile(){
         die('failed to move file');
     }
 
+    $userid = $userdata['id'];
+
     //attach newly uploaded file to the linked object
-    $sql = "INSERT INTO files(url,link,linktype) VALUES ('$fileurl', $link, '$linktype')";
+    $sql = "INSERT INTO files(url,link,linktype,user_id) VALUES ('$fileurl', $link, '$linktype', $userid)";
     $conn->query($sql);
 
     $result = true;
