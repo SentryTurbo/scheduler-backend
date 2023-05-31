@@ -6,11 +6,14 @@ include_once('../utils/headers.php');
 include_once('../utils/connect.php');
 include_once('../utils/user.php');
 
-$dataset = [$_POST['project_id'], $_POST['name'], $_POST['description']];
+$dataset = [$_POST['project_id'], $_POST['name'], '' /*$_POST['description']*/];
 
 //get user session
 $session = new UserSession();
 $userdata = $session->GetUserData($_POST['auth']);
+
+if(!preg_match("/^[a-zA-Z0-9 ]*$/",$_POST['name']))
+    die("error");
 
 //see if member has perm a_mb (add members)
 $allow = Perms::ParseUserPerms($_POST['project_id'], $userdata["id"], "a_m");

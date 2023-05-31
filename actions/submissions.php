@@ -77,6 +77,9 @@ function EditSubmission(){
     $submission = $data->id;
     $editData = json_decode($data->data, true);
     
+    if(empty($editData['name']))
+        die('error');
+
     $sql = "UPDATE submissions SET name='". $editData['name'] ."', description='". $editData['description'] ."' WHERE id=$submission";
     $result = $conn->query($sql);
 }

@@ -21,8 +21,11 @@ if(!$allow)
 
 $formatter = new SQLFormatter();
 
-//delete linked assignments
-$sql = "UPDATE projects SET name='". $data->name . "' WHERE id=". $data->id;
+$sql = "SELECT * FROM projects WHERE id=".$data->id;
+if(!empty($data->name) && preg_match("/^[a-zA-Z0-9 ]*$/",$data->name)){
+    $sql = "UPDATE projects SET name='". $data->name . "' WHERE id=". $data->id;
+}
+
 $result = $conn->query($sql);
 
 echo json_encode($data);

@@ -15,6 +15,14 @@ $matchresults = [];
 
 $querytext = $data->query->text;
 
+if(strlen($querytext) > 155){
+    die(json_encode($matchresults));
+}
+
+if(empty($querytext) || (!empty($querytext) && !preg_match("/^[a-zA-Z0-9 ]*$/",$querytext))){
+    die(json_encode($matchresults));
+}
+
 //search projects
 if($data->query->filters->project){
     $sql = "

@@ -12,6 +12,9 @@ $dataset = [$_POST['name'], $_POST['description']];
 $sesh = new UserSession();
 $userdata = $sesh->GetUserData($_POST['auth']);
 
+if(!preg_match("/^[a-zA-Z0-9 ]*$/",$_POST['name']))
+    die("error");
+
 //create the project
 $sql = "INSERT INTO projects (name,description,creator) VALUES ('" . $_POST['name'] . "', '". $_POST['description'] ."',". $userdata['id'] .")";
 

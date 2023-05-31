@@ -29,7 +29,11 @@ $name = $data->name;
 $description = $data->description;
 
 //edit assignment
-$sql = "UPDATE assignments SET name='$name', description='$description' WHERE id=". $data->id;
+$sql = "SELECT * FROM assignments WHERE id=".$data->id;
+if(!empty($data->name) && preg_match("/^[a-zA-Z0-9 ]*$/",$data->name)){
+    $sql = "UPDATE assignments SET name='$name', description='$description' WHERE id=". $data->id;
+}
+
 $result = $conn->query($sql);
 
 echo json_encode($data);

@@ -6,6 +6,9 @@ include_once('../utils/headers.php');
 include_once('../utils/connect.php');
 include_once('../utils/user.php');
 
+if(!preg_match("/^[a-zA-Z0-9 ]*$/",$_POST['name']) || (!empty($_POST['description']) && !preg_match("/^[a-zA-Z0-9 ]*$/",$_POST['description'])))
+    die("error");
+
 //get user session
 $session = new UserSession();
 $userdata = $session->GetUserData($_POST['auth']);

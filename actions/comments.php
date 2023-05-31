@@ -69,10 +69,15 @@ function AddComment(){
 
     $linktype = $data->linktype;
     $link = $data->link;
-    $content = $data->content;
+    $content = htmlspecialchars($data->content);
     $user = $userdata["id"];
 
     //create a comment
+    if(empty($content) || strlen($content) > 255){
+        $result = false;
+        die(json_encode($result));
+    }
+
     $sql = "INSERT INTO comments(content,user_id,link,linktype) VALUES ('$content', $user, $link, '$linktype')";
     $result = $conn->query($sql);
 }
