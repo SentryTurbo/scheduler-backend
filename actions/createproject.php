@@ -6,7 +6,7 @@ include_once('../utils/headers.php');
 include_once('../utils/connect.php');
 include_once('../utils/user.php');
 
-$dataset = [$_POST['name'], $_POST['description']];
+$dataset = [$_POST['name']];
 
 //get the current user
 $sesh = new UserSession();
@@ -16,7 +16,7 @@ if(!preg_match("/^[a-zA-Z0-9 ]*$/",$_POST['name']))
     die("error");
 
 //create the project
-$sql = "INSERT INTO projects (name,description,creator) VALUES ('" . $_POST['name'] . "', '". $_POST['description'] ."',". $userdata['id'] .")";
+$sql = "INSERT INTO projects (name,creator) VALUES ('" . $_POST['name'] . "',". $userdata['id'] .")";
 
 $result = $conn->query($sql);
 
