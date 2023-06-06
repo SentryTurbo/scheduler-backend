@@ -1,5 +1,14 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods apstrada pieprasijumu izdzest merki.
+        Notiek validacija, tiesibu apstrade un visu saistito datu
+        izdzesana.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/headers.php');
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;

@@ -1,5 +1,14 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods apstrada pieprasijumu izveidot jaunu merki.
+        Notiek validacija, lietotaja tiesibu parbaude un
+        vaicajums uz datu bazes serveri.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;
 include_once('../utils/headers.php');

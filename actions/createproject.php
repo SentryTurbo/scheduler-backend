@@ -1,5 +1,16 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods apstrada pieprasijumu izveidot jaunu projektu.
+        Notiek validacija, lietotaja tiesibu parbaude un
+        vaicajums uz datu bazes serveri. Kad projekts
+        tiek izveidots, veidotajs tiek pieskirts pie projekta ka
+        dalibnieks un projekta veidotajs.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;
 include_once('../utils/headers.php');

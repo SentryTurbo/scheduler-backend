@@ -1,5 +1,14 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods parstrada pieprasijumu atzimet uzdevumu ka pabeigtu.
+        Sis notiek tikai tad, ja lietotajam ir tiesibas rediget
+        uzdevumus.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;
 

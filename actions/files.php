@@ -1,5 +1,16 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods atbild par pieprasijumu apstradi, darbojoties ar failiem.
+        Atkarigi no ievaditas "darbibas", notiek atkariga operacija.
+        Sis darbibas ir: "augsupieladet", "skatit" un "dzest".
+        Faili tiek fiziski izdesti no datora diska tikai tad, ja tie
+        vairs nekad netiek atkartoti izmantoti sistema.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/headers.php');
 include_once('../utils/sqlutils.php');
 include_once('../utils/connect.php');

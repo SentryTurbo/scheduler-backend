@@ -1,5 +1,14 @@
 <?php
 
+/*
+    Koda apraksts:
+        Komentaru pieprasijumu apstrades fails. Darbojas adaptivi,
+        balstoties uz atsutito "darbibas tipu". Darbibas ir: skatit,
+        pievienot un izdzest.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/headers.php');
 include_once('../utils/sqlutils.php');
 include_once('../utils/connect.php');

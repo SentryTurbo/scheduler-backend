@@ -1,5 +1,14 @@
 <?php
 
+/*
+    Koda apraksts:
+        Atlasa projekta panela datus. Tiek atlasiti
+        projekta merki. Notiek vienkarsas statistikas
+        aprekini (cik uzdevumu pabeigts, procenti, vai merkis ir pabeigts)
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 header('Access-Control-Allow-Origin: *');
 
 include_once('utils/connect.php');

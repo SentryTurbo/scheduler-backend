@@ -1,5 +1,14 @@
 <?php
 
+/*
+    Koda apraksts:
+        Sis ir datu bazes instalacijas fails, kurs
+        veic vairakus vaicajumus uz datu bazes serveri
+        un izveido lietojamo datu bazi caur vienu pogas klikski.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once '../utils/constants.php';
 
 include_once('../utils/creds.php');

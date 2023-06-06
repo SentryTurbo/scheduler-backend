@@ -1,5 +1,12 @@
 <?php
 
+/*
+    Koda apraksts:
+        Atlasa projekta dalibniekus.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/headers.php');
 include_once('../utils/sqlutils.php');
 include_once('../utils/connect.php');

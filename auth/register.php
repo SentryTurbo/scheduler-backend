@@ -1,5 +1,13 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods atbild par registraciju sistema. Parole tiek
+        sifreta ar hashing metodi.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;
 

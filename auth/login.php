@@ -1,5 +1,17 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods atbild par autorizaciju sistema. Tiek parbauditi
+        ievaditie dati un to atbilstiba tiem kuri ir ieksa datu baze.
+        Ja autorizacija ir veiksmiga, tad atpakal tiek atsutiti
+        autorizacijas dati ar nosifretu paroli, kurus lietotajs
+        saglaba uz lokalas sistemas, lai nakotne varetu so lietotaju
+        identificet.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;
 

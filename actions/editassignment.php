@@ -1,5 +1,13 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods apstrada pieprasijumu rediget uzdevumu.
+        Notiek validacija, tiesibu apstrade un datu atjaunosana.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/sqlutils.php');
 use Utils\SQLFormatter;
 

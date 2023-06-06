@@ -1,5 +1,12 @@
 <?php
 
+/*
+    Koda apraksts:
+        Utilitfails, kurs piesledzas pie datu bazes servera.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('creds.php');
 
 // Create connection

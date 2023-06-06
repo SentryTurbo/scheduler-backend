@@ -1,5 +1,13 @@
 <?php
 
+/*
+    Koda apraksts:
+        Satur klasi, kura sevi glaba funkcijas, lai atvieglotu
+        SQL vaicajumu izveidi caur kodu.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 namespace Utils;
 
 class SQLFormatter {

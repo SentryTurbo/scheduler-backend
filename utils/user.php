@@ -1,5 +1,22 @@
 <?php
 
+/*
+    Koda apraksts:
+        Fails satur sevi utilitklases: 
+        
+        'UserSession' atbild par lietotaja identificesanu;
+
+        'Perms' atbild par lietotaja tiesibu apstradi;
+
+        'ProjectUtils' atbild par utilitfunkcijam, kuras palidz atrast specifisku datu objektu saistitos datus,
+        piemeram, atrast noteikta uzdevuma projekta ID;
+
+        'FileUtils' atbild par failiem, satur sevi izdesanas funkcionalitati un
+        ari faila tipa apstradi.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('connect.php');
 include_once('encrypt.php');
 

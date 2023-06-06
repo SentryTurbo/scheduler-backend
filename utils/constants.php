@@ -1,5 +1,13 @@
 <?php
 
+/*
+    Koda apraksts:
+        Utilitfails, kurs satur sevi statiskus datus.
+        Sobrid tie satur datu bazes autorizacijas datus.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 namespace Utils;
 
 function getConst($path){

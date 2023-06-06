@@ -1,5 +1,14 @@
 <?php
 
+/*
+    Koda apraksts:
+        Utilitfails, kurs satur vienkarsas sifresanas klasi.
+        Klase satur funkcijas, kuras sifre vai atsifre ievadito
+        parametru.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 class EncryptorBasic{
     public function encrypt($string){
         // Store the cipher method

@@ -1,5 +1,15 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods apstrada pieprasijumu izdzest profilu.
+        Notiek validacija, tiesibu apstrade un visu saistito datu
+        izdzesana (sis stradas tikai tad, ja lietotajs
+        manuali izdesis visus savus datus pirms so operaciju izpildit).
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/headers.php');
 include_once('../utils/connect.php');
 include_once('../utils/user.php');

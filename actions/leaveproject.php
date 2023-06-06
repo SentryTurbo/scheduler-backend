@@ -1,5 +1,13 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods atbild par momentu, kad lietotajs pamet projektu.
+        Sis notiek tikai tad, ja lietotajs nav projekta veidotajs.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/headers.php');
 include_once('../utils/connect.php');
 include_once('../utils/user.php');

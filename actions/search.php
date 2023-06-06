@@ -1,5 +1,13 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods atbild par meklesanu. Atkarigi no atzimetiem
+        filtriem un ievadita vaicajuma, mainas rezultati.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/headers.php');
 include_once('../utils/sqlutils.php');
 include_once('../utils/connect.php');

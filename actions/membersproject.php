@@ -1,5 +1,15 @@
 <?php
 
+/*
+    Koda apraksts:
+        Kods atbild par pieprasijumu apstradi, darbojoties ar projektu dalibniekiem.
+        Atkarigi no pieprasitas darbibas, notiek sekojosas operacijas:
+        dalibnieka pievienosana pie projekta, dalibnieka tiesibu redigesana,
+        dalibnieka izmesana no projekta
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('../utils/headers.php');
 include_once('../utils/sqlutils.php');
 include_once('../utils/connect.php');

@@ -1,5 +1,12 @@
 <?php
 
+/*
+    Koda apraksts:
+        Atlasa lietotaja profila datus.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 include_once('utils/headers.php');
 include_once('utils/connect.php');
 include_once('utils/user.php');

@@ -1,5 +1,14 @@
 <?php
 
+/*
+    Koda apraksts:
+        Atlasa galvena panela datus. Atlasa ar lietotaju
+        sasaistitus projektus, merkus un uzdevumus. Izpilda
+        nelielus progresa un statistikas aprekinus.
+    
+    Vlads Muravjovs, 4Ap, Rezeknes Tehnikums, 2023
+*/
+
 header('Access-Control-Allow-Origin: *');
 
 include_once('utils/headers.php');
