@@ -154,15 +154,30 @@ class ProjectUtils{
 class FileUtils{
     public static function ParseFiletype($url){
         if(str_ends_with($url, '.png') || str_ends_with($url, '.jpg') || str_ends_with($url, '.gif'))
-            return 'Image';
+            return 'Bilde';
         
         if(str_ends_with($url, '.exe'))
-            return 'Executeable'; 
+            return 'Atverams Fails';
+
+        if(str_ends_with($url, '.mp3'))
+            return 'Audio Fails';
+
+        if(str_ends_with($url, '.mp4'))
+            return 'Video Fails';
 
         if(str_ends_with($url, '.zip') || str_ends_with($url, '.rar'))
-            return 'Compressed folder';
+            return 'Saspiesta Mape';
         
-        return 'Unknown';
+        if(str_ends_with($url, '.doc') || str_ends_with($url, '.docx') || str_ends_with($url, '.pdf'))
+            return 'Dokuments';
+
+        if(str_ends_with($url, '.ppt') || str_ends_with($url, '.pptx'))
+            return 'Prezentacija';
+
+        if(str_ends_with($url, '.txt'))
+            return 'Teksta Fails';
+        
+        return 'Fails';
     }
 
     public static function DeleteAllLinkedFiles($auth, $link, $linktype){

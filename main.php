@@ -30,6 +30,21 @@ $result = $conn->query($sql);
 $response = array();
 $projects = array();
 
+//bubble sort algoritms, lai varetu kartot projektus pec to pabeigsanas statusa
+function bubbleSortProjects($arr){
+    for($i = 0; $i < count($arr) - 1;++$i){
+        for($j = 0; $j < count($arr) - $i - 1; ++$j){
+            if($arr[$j]['finish'] && !$arr[$j+1]['finish']){
+                $t = $arr[$j];
+                $arr[$j] = $arr[$j+1];
+                $arr[$j + 1] = $t;
+            }
+        }
+    }
+
+    return $arr;
+}
+
 while($row = $result->fetch_assoc()) {
     //calculate project progress
     $sql = "SELECT * FROM milestones WHERE project_id=" . $row['id'];
@@ -62,12 +77,16 @@ while($row = $result->fetch_assoc()) {
 
     if($fmiles == $miles)
         $row['finish'] = true;
+    else
+        $row['finish'] = false;
 
     //percent
     $row['percent'] = $miles == 0 ? 0 : number_format($fmiles/$miles * 100);
 
     $projects[] = $row;
 }
+
+$projects = bubbleSortProjects($projects);
 
 $response['projects'] = $projects;
 
@@ -105,11 +124,13 @@ while($row = $result->fetch_assoc()) {
 
     if($fcount == $acount)
         $row['finish'] = true;
+    else
+        $row['finish'] = false;
 
     $milestones[] = $row;
 }
 
-$response['milestones'] = $milestones;
+$response['milestones'] = bubbleSortProjects($milestones);
 
 //get ASSOCIATED assignments
 $assignments = array();

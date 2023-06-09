@@ -51,8 +51,14 @@ function UploadFile(){
             'txt' => 'text/plain',
             'pdf' => 'application/pdf',
             'zip' => 'application/zip',
+            '7z'  => 'application/x-7z-compressed',
+            'rar' => 'application/vnd.rar',
             'mp3' => 'audio/mpeg',
-            'mp4' => 'video/mp4'
+            'mp4' => 'video/mp4',
+            'doc' => 'application/msword',
+            'docx'=> 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'ppt' => 'application/vnd.ms-powerpoint',
+            'pptx'=> 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
         ),
         true
     )) {
