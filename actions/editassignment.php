@@ -35,11 +35,12 @@ $formatter = new SQLFormatter();
 
 $name = $data->name;
 $description = $data->description;
+$approxdate = $data->approx_date;
 
 //edit assignment
 $sql = "SELECT * FROM assignments WHERE id=".$data->id;
 if(!empty($data->name) && preg_match("/^[a-zA-Z0-9 ]*$/",$data->name)){
-    $sql = "UPDATE assignments SET name='$name', description='$description' WHERE id=". $data->id;
+    $sql = "UPDATE assignments SET name='$name', description='$description', approx_date='$approxdate' WHERE id=". $data->id;
 }
 
 $result = $conn->query($sql);

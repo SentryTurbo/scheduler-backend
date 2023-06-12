@@ -30,7 +30,7 @@ $unfinishedassignments = array();
 $finishedassignments = array();
 
 //get unfinished ones
-$sql = "SELECT id,name,description,finish_date FROM assignments WHERE milestone_id=" . $_GET['id'] . " AND (finish_date IS NULL OR finish_date='0000-00-00')";
+$sql = "SELECT id,name,description,finish_date,approx_date FROM assignments WHERE milestone_id=" . $_GET['id'] . " AND (finish_date IS NULL OR finish_date='0000-00-00')";
 $result = $conn->query($sql);
 
 while($row = $result->fetch_assoc()) {
@@ -38,7 +38,7 @@ while($row = $result->fetch_assoc()) {
 }
 
 //get finished ones
-$sql = "SELECT id,name,description,finish_date FROM assignments WHERE milestone_id=" . $_GET['id'] . " AND finish_date IS NOT NULL AND finish_date <> '0000-00-00'";
+$sql = "SELECT id,name,description,finish_date,approx_date FROM assignments WHERE milestone_id=" . $_GET['id'] . " AND finish_date IS NOT NULL AND finish_date <> '0000-00-00'";
 $result = $conn->query($sql);
 
 while($row = $result->fetch_assoc()) {
