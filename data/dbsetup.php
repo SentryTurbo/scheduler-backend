@@ -117,6 +117,7 @@ CREATE TABLE assignments(
     name VARCHAR(100) NOT NULL,
     description TEXT,
     finish_date DATE,
+    approx_date DATE,
     PRIMARY KEY(id),
     FOREIGN KEY (milestone_id) REFERENCES milestones(id)
 )

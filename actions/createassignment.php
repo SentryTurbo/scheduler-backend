@@ -32,8 +32,16 @@ if(!$allow)
 
 $dataset = [$_POST['milestone_id'], $_POST['name'], $_POST['description']];
 
+$set = isset($_POST['approx_date']) && !empty($_POST['approx_date']);
+$name = '';
+if($set){
+    array_push($dataset, $_POST['approx_date']);
+    $name = ',approx_date';
+}
+    
+
 $formatter = new SQLFormatter();
-$sql = "INSERT INTO assignments (milestone_id, name,description) VALUES (" . $formatter->formatArray($dataset) . ")";
+$sql = "INSERT INTO assignments (milestone_id, name,description$name) VALUES (" . $formatter->formatArray($dataset) . ")";
 
 $result = $conn->query($sql);
 
