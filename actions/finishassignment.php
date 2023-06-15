@@ -35,7 +35,7 @@ if(!$allow)
 $formatter = new SQLFormatter();
 
 //edit assignment
-$finish = $data->set == 'finish' ? date('Y-m-d H:i:s') : 'NULL';
+$finish = $data->set == 'finish' ? date('Y-m-d H:i:s') : '0000-00-00';
 
 $sql = "UPDATE assignments SET finish_date='". $finish ."' WHERE id=". $data->id;
 $result = $conn->query($sql);
